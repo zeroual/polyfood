@@ -1,36 +1,32 @@
 package org.polytech.polyfood;
 
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import org.polytech.polyfood.buisness.*;
+
+import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
 
 public class Main {
 
 
     public static void main(String[] args) {
-        String url = "jdbc:mysql://localhost:3306/polyfood";
-        String username = "root";
-        String password = "rootpw";
-        System.out.println("Hello World");
-        try {
-            Connection connection = DriverManager.getConnection(url, username, password);
+        OrderService orderService = new OrderService();
 
-            String sql = "SELECT * FROM USERS";
+        Long consumerId = 982738L;
+        Long restaurantId = 62937L;
+        OrderLineItem item1 = new OrderLineItem(9L, "Salade papaye thaïlandaise", BigDecimal.valueOf(8.9));
+        OrderLineItem item2 = new OrderLineItem(9L, "Fruits", BigDecimal.valueOf(5.9));
+        OrderLineItem item3 = new OrderLineItem(9L, "Evian", BigDecimal.valueOf(2.5));
+        List<OrderLineItem> orderLineItems = Arrays.asList(item1, item2, item3);
 
-            // execute --> update, delete, insert
-            // executeQuery --> select
+        DeliveryInformation deliveryInformation = new DeliveryInformation("33 Rue la Fayette","75009","DC 6382");
 
-            ResultSet resultSet = connection.createStatement().executeQuery(sql);
-            // resultSet is the result of select query
-            while (resultSet.next()) {
-                System.out.println("username:" + resultSet.getString("username") + ",password:" + resultSet.getString("password"));
-            }
+        PaymentInformation paymentInformation = new PaymentInformation("826786839822809","02/2022","762");
 
-            connection.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        Order order = new Order(consumerId, restaurantId, orderLineItems, deliveryInformation, paymentInformation);
+        orderService.createOrder(order);
+
+
     }
 }
