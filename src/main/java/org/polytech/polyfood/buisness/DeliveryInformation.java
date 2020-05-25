@@ -11,4 +11,16 @@ public class DeliveryInformation {
         this.zipCode = zipCode;
         this.details = details;
     }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public String getDetails() {
+        return details;
+    }
 }

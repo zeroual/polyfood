@@ -11,4 +11,16 @@ public class PaymentInformation {
         this.endDate = endDate;
         this.securityCode = securityCode;
     }
+
+    public String getCreditCard() {
+        return creditCard;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public String getSecurityCode() {
+        return securityCode;
+    }
 }

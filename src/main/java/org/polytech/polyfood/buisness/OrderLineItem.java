@@ -14,4 +14,16 @@ public class OrderLineItem {
         this.name = name;
         this.price = price;
     }
+
+    public Long getMenuId() {
+        return menuId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
 }

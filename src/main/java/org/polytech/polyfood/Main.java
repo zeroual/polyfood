@@ -28,5 +28,10 @@ public class Main {
         orderService.createOrder(order);
 
 
+        List<Order> orders = orderService.fetchConsumerOrders(consumerId);
+        for (Order o : orders) {
+            System.out.println(o.toString());
+        }
+
     }
 }

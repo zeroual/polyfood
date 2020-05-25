@@ -18,4 +18,35 @@ public class Order {
         this.deliveryInformation = deliveryInformation;
         this.paymentInformation = paymentInformation;
     }
+
+    public Long getConsumerId() {
+        return consumerId;
+    }
+
+    public Long getRestaurantId() {
+        return restaurantId;
+    }
+
+    public List<OrderLineItem> getOrderLineItems() {
+        return orderLineItems;
+    }
+
+    public DeliveryInformation getDeliveryInformation() {
+        return deliveryInformation;
+    }
+
+    public PaymentInformation getPaymentInformation() {
+        return paymentInformation;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "consumerId=" + consumerId +
+                ", restaurantId=" + restaurantId +
+                ", orderLineItems=" + orderLineItems +
+                ", deliveryInformation=" + deliveryInformation +
+                ", paymentInformation=" + paymentInformation +
+                '}';
+    }
 }
