@@ -13,20 +13,20 @@ public class Order {
     private Long id;
 
     @Column(name = "CONSUMER_ID")
-    private final Long consumerId;
+    private  Long consumerId;
 
     @Column(name = "RESTAURANT_ID")
-    private final Long restaurantId;
+    private  Long restaurantId;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "ORDER_ID")
-    private final List<OrderLineItem> orderLineItems;
+    private  List<OrderLineItem> orderLineItems;
 
     @Embedded
-    private final DeliveryInformation deliveryInformation;
+    private  DeliveryInformation deliveryInformation;
 
     @Embedded
-    private final PaymentInformation paymentInformation;
+    private  PaymentInformation paymentInformation;
 
     public Order(Long consumerId, Long restaurantId, List<OrderLineItem> orderLineItems,
                  DeliveryInformation deliveryInformation, PaymentInformation paymentInformation) {
@@ -36,6 +36,9 @@ public class Order {
         this.orderLineItems = orderLineItems;
         this.deliveryInformation = deliveryInformation;
         this.paymentInformation = paymentInformation;
+    }
+
+    public Order() {
     }
 
     public Long getConsumerId() {

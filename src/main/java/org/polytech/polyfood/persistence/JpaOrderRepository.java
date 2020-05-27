@@ -19,6 +19,11 @@ public class JpaOrderRepository implements OrderRepository {
     }
 
     public List<Order> findByConsumerId(Long consumerId) {
-        return null;
+
+        String query = "SELECT o FROM Order o WHERE o.consumerId=:consumerId";
+
+        return entityManager.createQuery(query, Order.class)
+                .setParameter("consumerId", consumerId)
+                .getResultList();
     }
 }

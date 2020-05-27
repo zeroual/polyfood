@@ -28,6 +28,9 @@ public class OrderLineItem {
         this.price = price;
     }
 
+    public OrderLineItem() {
+    }
+
     public Long getMenuId() {
         return menuId;
     }
