@@ -1,9 +1,6 @@
 package org.polytech.polyfood.buisness;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -12,6 +9,7 @@ public class Order {
 
     @Id
     @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "CONSUMER_ID")
@@ -20,9 +18,9 @@ public class Order {
     @Column(name = "RESTAURANT_ID")
     private final Long restaurantId;
 
-    private final List<OrderLineItem> orderLineItems;
-    private final DeliveryInformation deliveryInformation;
-    private final PaymentInformation paymentInformation;
+    private final transient List<OrderLineItem> orderLineItems;
+    private final transient DeliveryInformation deliveryInformation;
+    private final transient PaymentInformation paymentInformation;
 
     public Order(Long consumerId, Long restaurantId, List<OrderLineItem> orderLineItems,
                  DeliveryInformation deliveryInformation, PaymentInformation paymentInformation) {

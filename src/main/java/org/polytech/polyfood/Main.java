@@ -3,12 +3,12 @@ package org.polytech.polyfood;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 import org.polytech.polyfood.buisness.*;
-import org.polytech.polyfood.persistence.JdbcOrderRepository;
 import org.polytech.polyfood.persistence.JpaOrderRepository;
 import org.polytech.polyfood.persistence.OrderRepository;
 
@@ -24,7 +24,9 @@ public class Main {
 
         SessionFactory sessionFactory = buildSessionFactory();
 
+
         Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
 
         OrderRepository orderRepository = new JpaOrderRepository(session);
 
@@ -43,6 +45,8 @@ public class Main {
 
         Order order = new Order(consumerId, restaurantId, orderLineItems, deliveryInformation, paymentInformation);
         orderService.createOrder(order);
+
+        transaction.commit();
 
 
         List<Order> orders = orderService.fetchConsumerOrders(consumerId);
