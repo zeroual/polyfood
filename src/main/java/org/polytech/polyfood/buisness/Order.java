@@ -1,10 +1,25 @@
 package org.polytech.polyfood.buisness;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.List;
 
+@Entity
+@Table(name = "T_ORDER")
 public class Order {
+
+    @Id
+    @Column(name = "ID")
+    private Long id;
+
+    @Column(name = "CONSUMER_ID")
     private final Long consumerId;
+
+    @Column(name = "RESTAURANT_ID")
     private final Long restaurantId;
+
     private final List<OrderLineItem> orderLineItems;
     private final DeliveryInformation deliveryInformation;
     private final PaymentInformation paymentInformation;

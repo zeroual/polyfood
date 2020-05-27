@@ -1,11 +1,15 @@
 package org.polytech.polyfood.buisness;
 
-import org.polytech.polyfood.persistence.JdbcOrderRepository;
+import org.polytech.polyfood.persistence.OrderRepository;
 
 import java.util.List;
 
 public class OrderService {
-    private JdbcOrderRepository jdbcOrderRepository = new JdbcOrderRepository();
+    private OrderRepository orderRepository;
+
+    public OrderService(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
 
     public void createOrder(Order order) {
         // verify consumer details
@@ -13,11 +17,11 @@ public class OrderService {
         // ask restaurant to prepare this ticket
         // verify user paymentInformation
         // if all ok then save order in database
-        this.jdbcOrderRepository.save(order);
+        this.orderRepository.save(order);
         // send notification to user
     }
 
-    public List<Order> fetchConsumerOrders(Long consumerId){
-        return this.jdbcOrderRepository.findByConsumerId(consumerId);
+    public List<Order> fetchConsumerOrders(Long consumerId) {
+        return this.orderRepository.findByConsumerId(consumerId);
     }
 }
