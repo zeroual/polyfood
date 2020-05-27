@@ -1,9 +1,21 @@
 package org.polytech.polyfood.buisness;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class DeliveryInformation {
-    private final String address;
-    private final String zipCode;
-    private final String details;
+    @Column(name = "ZIP_CODE")
+    private String zipCode;
+
+    @Column(name = "ADDRESS")
+    private String address;
+
+    @Column(name = "DETAILS")
+    private String details;
+
+    public DeliveryInformation() {
+    }
 
     public DeliveryInformation(String address, String zipCode, String details) {
 

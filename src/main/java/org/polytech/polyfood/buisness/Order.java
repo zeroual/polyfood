@@ -18,9 +18,15 @@ public class Order {
     @Column(name = "RESTAURANT_ID")
     private final Long restaurantId;
 
-    private final transient List<OrderLineItem> orderLineItems;
-    private final transient DeliveryInformation deliveryInformation;
-    private final transient PaymentInformation paymentInformation;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ORDER_ID")
+    private final List<OrderLineItem> orderLineItems;
+
+    @Embedded
+    private final DeliveryInformation deliveryInformation;
+
+    @Embedded
+    private final PaymentInformation paymentInformation;
 
     public Order(Long consumerId, Long restaurantId, List<OrderLineItem> orderLineItems,
                  DeliveryInformation deliveryInformation, PaymentInformation paymentInformation) {
