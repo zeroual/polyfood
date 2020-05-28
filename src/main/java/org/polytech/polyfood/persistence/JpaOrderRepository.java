@@ -15,7 +15,9 @@ public class JpaOrderRepository implements OrderRepository {
     }
 
     public void save(Order order) {
+        entityManager.getTransaction().begin();
         entityManager.persist(order);
+        entityManager.getTransaction().commit();
     }
 
     public List<Order> findByConsumerId(Long consumerId) {
@@ -25,5 +27,10 @@ public class JpaOrderRepository implements OrderRepository {
         return entityManager.createQuery(query, Order.class)
                 .setParameter("consumerId", consumerId)
                 .getResultList();
+    }
+
+    @Override
+    public Order findById(Long id) {
+        return entityManager.find(Order.class, id);
     }
 }

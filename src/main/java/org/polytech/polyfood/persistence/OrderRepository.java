@@ -9,4 +9,6 @@ public interface OrderRepository {
     void save(Order order);
 
     List<Order> findByConsumerId(Long consumerId);
+
+    Order findById(Long id);
 }

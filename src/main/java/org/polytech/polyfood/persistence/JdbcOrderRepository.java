@@ -57,4 +57,9 @@ public class JdbcOrderRepository implements OrderRepository {
     public List<Order> findByConsumerId(Long consumerId) {
         return null;
     }
+
+    @Override
+    public Order findById(Long id) {
+        return null;
+    }
 }
