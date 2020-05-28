@@ -11,11 +11,10 @@ import org.polytech.polyfood.buisness.OrderService;
 import org.polytech.polyfood.persistence.JpaOrderRepository;
 import org.polytech.polyfood.persistence.OrderRepository;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import java.util.Properties;
 
-@Configuration
+@org.springframework.context.annotation.Configuration
 public class AppConfiguration {
 
     @Bean

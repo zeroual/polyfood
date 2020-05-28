@@ -24,4 +24,8 @@ public class OrderService {
     public List<Order> fetchConsumerOrders(Long consumerId) {
         return this.orderRepository.findByConsumerId(consumerId);
     }
+
+    public Order getOrder(Long id) {
+        return null;
+    }
 }
