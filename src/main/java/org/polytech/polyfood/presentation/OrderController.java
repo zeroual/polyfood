@@ -1,8 +1,11 @@
 package org.polytech.polyfood.presentation;
 
+import com.sun.tools.corba.se.idl.constExpr.Or;
 import org.polytech.polyfood.buisness.Order;
 import org.polytech.polyfood.buisness.OrderService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class OrderController {
@@ -35,5 +38,9 @@ public class OrderController {
 
 
     // GET http://localhost:8080/orders?consumerId=982738
+    @GetMapping("/orders")
+    List<Order> orders(@RequestParam("consumerId") Long consumerId){
+        return orderService.fetchConsumerOrders(consumerId);
+    }
 
 }
