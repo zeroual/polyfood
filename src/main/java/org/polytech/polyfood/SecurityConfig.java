@@ -31,13 +31,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // /restaurant require RESTAURANT_ROLE
         // ANY REQUEST require authentication
 
+
         http.authorizeRequests()
                 .mvcMatchers("/index.html", "/users").permitAll()
                 .mvcMatchers("/orders").authenticated()
                 .mvcMatchers("/admin").hasRole("ADMIN")
                 .mvcMatchers("/restaurant").hasRole("RESTAURANT")
                 .anyRequest().authenticated()
-                .and().formLogin().and().csrf().disable();
+                .and().formLogin()
+                .successHandler((req, res, authentication) -> res.setStatus(200))
+                .failureHandler((request, response, exception) -> response.setStatus(401))
+                .and().csrf().disable()
+                .exceptionHandling().authenticationEntryPoint((req, res, authException) -> res.setStatus(403))
+                .and().logout().permitAll();
 
     }
 

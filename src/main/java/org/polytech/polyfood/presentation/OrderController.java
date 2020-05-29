@@ -4,6 +4,7 @@ import org.polytech.polyfood.buisness.Order;
 import org.polytech.polyfood.buisness.OrderService;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -25,7 +26,10 @@ public class OrderController {
 
     // curl -X POST --data="{}" http://localhost:8080/orders -> request body
     @PostMapping("/orders")
-    public Order placeOrder(@RequestBody Order order) {
+    public Order placeOrder(@RequestBody Order order, Principal principal) {
+
+        // GET CONNECTED USER
+        String username = principal.getName();
         orderService.createOrder(order);
         return order;
     }

@@ -75,4 +75,24 @@ public class Order {
                 ", paymentInformation=" + paymentInformation +
                 '}';
     }
+
+    public void setConsumerId(Long consumerId) {
+        this.consumerId = consumerId;
+    }
+
+    public void setRestaurantId(Long restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
+    public void setOrderLineItems(List<OrderLineItem> orderLineItems) {
+        this.orderLineItems = orderLineItems;
+    }
+
+    public void setDeliveryInformation(DeliveryInformation deliveryInformation) {
+        this.deliveryInformation = deliveryInformation;
+    }
+
+    public void setPaymentInformation(PaymentInformation paymentInformation) {
+        this.paymentInformation = paymentInformation;
+    }
 }
