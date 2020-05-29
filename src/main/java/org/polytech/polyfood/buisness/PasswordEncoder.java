@@ -1,5 +1,4 @@
 package org.polytech.polyfood.buisness;
 
-public interface PasswordEncoder {
-    String encode(String password);
+public interface PasswordEncoder extends org.springframework.security.crypto.password.PasswordEncoder {
 }

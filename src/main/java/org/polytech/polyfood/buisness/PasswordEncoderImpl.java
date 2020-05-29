@@ -1,9 +1,7 @@
 package org.polytech.polyfood.buisness;
 
-public class PasswordEncoderImpl implements PasswordEncoder {
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-    @Override
-    public String encode(String password) {
-        return password;
-    }
+public class PasswordEncoderImpl extends BCryptPasswordEncoder implements PasswordEncoder {
+
 }

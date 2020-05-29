@@ -1,5 +1,6 @@
 package org.polytech.polyfood;
 
+import org.polytech.polyfood.buisness.PasswordEncoder;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -8,6 +9,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+
+    PasswordEncoder passwordEncoder;
+
+    public SecurityConfig(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     // authorization
     @Override
@@ -25,7 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/orders").authenticated()
                 .mvcMatchers("/admin").hasRole("ADMIN")
                 .mvcMatchers("/restaurant").hasRole("RESTAURANT")
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+                .and().formLogin();
 
     }
 
@@ -33,6 +41,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // authentication
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        super.configure(auth);
+        auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder.encode("admin")).roles("admin")
+                .and().withUser("user").password(passwordEncoder.encode("user")).roles("user")
+                .and().withUser("restaurant").password(passwordEncoder.encode("restaurant")).roles("restaurant")
+                .and().passwordEncoder(passwordEncoder);
     }
 }
