@@ -6,14 +6,18 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import javax.sql.DataSource;
+
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     PasswordEncoder passwordEncoder;
+    private DataSource datasource;
 
-    public SecurityConfig(PasswordEncoder passwordEncoder) {
+    public SecurityConfig(PasswordEncoder passwordEncoder, DataSource datasource) {
         this.passwordEncoder = passwordEncoder;
+        this.datasource = datasource;
     }
 
     // authorization
@@ -33,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/admin").hasRole("ADMIN")
                 .mvcMatchers("/restaurant").hasRole("RESTAURANT")
                 .anyRequest().authenticated()
-                .and().formLogin();
+                .and().formLogin().and().csrf().disable();
 
     }
 
@@ -41,9 +45,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // authentication
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder.encode("admin")).roles("admin")
-                .and().withUser("user").password(passwordEncoder.encode("user")).roles("user")
-                .and().withUser("restaurant").password(passwordEncoder.encode("restaurant")).roles("restaurant")
-                .and().passwordEncoder(passwordEncoder);
+        /*
+        by default spring security will use this tables to fetch user credentials and authorities
+        -----
+        create table users(
+	        username varchar(50) not null primary key,
+	        password varchar(50) not null,
+	        enabled boolean not null
+        );
+        
+        create table authorities (
+	        username varchar(50) not null,
+	        authority varchar(50) not null,
+	        constraint fk_authorities_users foreign key(username) references users(username)
+        );
+
+         */
+        auth.jdbcAuthentication().dataSource(datasource)
+                .usersByUsernameQuery("select username,password, enabled from T_USERS where username= ?");
+        // .authoritiesByUsernameQuery("select username,authority from authorities where username = ?");
+
+
     }
 }

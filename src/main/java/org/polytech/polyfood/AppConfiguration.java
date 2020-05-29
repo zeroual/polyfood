@@ -11,7 +11,6 @@ import org.polytech.polyfood.persistence.JpaUserRepository;
 import org.polytech.polyfood.persistence.OrderRepository;
 import org.polytech.polyfood.persistence.UserRepository;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Properties;
 

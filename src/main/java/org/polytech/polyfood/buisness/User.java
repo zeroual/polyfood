@@ -1,10 +1,7 @@
 package org.polytech.polyfood.buisness;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "T_USERS")
@@ -23,6 +20,12 @@ public class User {
     @Column(name = "LAST_NAME")
     private String lastName;
 
+
+    @Column(name = "ENABLED")
+
+    private boolean enabled = true;
+
+    @OneToMany(cascade = CascadeType.ALL)
 
     public String getUsername() {
         return username;
